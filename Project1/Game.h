@@ -16,12 +16,13 @@ public:
 	void render();
 	void clean();
 	bool running();
+	static SDL_Renderer* renderer;
 
 private:
 	int cnt;		//counter
 	bool isRunning;
 	SDL_Window* window;
-	SDL_Renderer* renderer;
+
 
 };
 
