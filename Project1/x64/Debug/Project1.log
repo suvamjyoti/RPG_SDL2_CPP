@@ -1,34 +1,5 @@
-﻿  Components.cpp
-  ECS.cpp
+﻿  ECS.cpp
   Game.cpp
-C:\Users\Suvamjyoti Panda\source\repos\Project1\Project1\ECS.h(90,18): error C3694: a structured binding declaration can contain no specifiers other than 'static', 'thread_local', 'auto', and cv-qualifiers
-C:\Users\Suvamjyoti Panda\source\repos\Project1\Project1\Game.cpp(76): message : see reference to function template instantiation 'T &Entity::addComponent<PositionComponent,PositionComponent&>(TArgs)' being compiled
-          with
-          [
-              T=PositionComponent,
-              TArgs=PositionComponent &
-          ]
-C:\Users\Suvamjyoti Panda\source\repos\Project1\Project1\ECS.h(90,18): error C2371: 'componentTypeID': redefinition; different basic types
-C:\Users\Suvamjyoti Panda\source\repos\Project1\Project1\ECS.h(88): message : see declaration of 'componentTypeID'
-C:\Users\Suvamjyoti Panda\source\repos\Project1\Project1\ECS.h(91,19): error C3694: a structured binding declaration can contain no specifiers other than 'static', 'thread_local', 'auto', and cv-qualifiers
-C:\Users\Suvamjyoti Panda\source\repos\Project1\Project1\ECS.h(91,19): error C2371: 'componentTypeID': redefinition; different basic types
-C:\Users\Suvamjyoti Panda\source\repos\Project1\Project1\ECS.h(88): message : see declaration of 'componentTypeID'
-C:\Users\Suvamjyoti Panda\source\repos\Project1\Project1\ECS.h(101,14): error C2275: 'ComponentArray': illegal use of this type as an expression
-C:\Users\Suvamjyoti Panda\source\repos\Project1\Project1\ECS.h(34): message : see declaration of 'ComponentArray'
-C:\Users\Suvamjyoti Panda\source\repos\Project1\Project1\Game.cpp(103): message : see reference to function template instantiation 'T &Entity::getComponent<PositionComponent>(void) const' being compiled
-          with
-          [
-              T=PositionComponent
-          ]
-C:\Users\Suvamjyoti Panda\source\repos\Project1\Project1\ECS.h(102,1): error C3536: 'ptr': cannot be used before it is initialized
-C:\Users\Suvamjyoti Panda\source\repos\Project1\Project1\ECS.h(102,1): error C2440: 'static_cast': cannot convert from 'int' to 'T *'
-          with
-          [
-              T=PositionComponent
-          ]
-C:\Users\Suvamjyoti Panda\source\repos\Project1\Project1\ECS.h(102,11): message : Conversion from integral type to pointer type requires reinterpret_cast, C-style cast or function-style cast
-  GameObject.cpp
-  main.cpp
-  Map.cpp
   TextureManager.cpp
   Generating Code...
+  Project1.vcxproj -> C:\Users\Suvamjyoti Panda\source\repos\Project1\x64\Debug\Project1.exe
