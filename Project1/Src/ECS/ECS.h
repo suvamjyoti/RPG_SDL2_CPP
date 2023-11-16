@@ -13,6 +13,7 @@ class Entity;
 
 using ComponentID = std::size_t;
 
+
 inline ComponentID getComponentTypeID()
 {
 	static ComponentID lastID = 0;
@@ -21,8 +22,9 @@ inline ComponentID getComponentTypeID()
 
 template <typename T>
 
-ComponentID getComponentTypeID() noexcept
+inline ComponentID getComponentTypeID() noexcept
 {
+	static_assert(std::is_base_of<Component, T>::value, "");
 	static ComponentID typeID = getComponentTypeID();
 	//return typeID();
 	return typeID;
@@ -38,7 +40,7 @@ using ComponentArray = std::array<Component*, maxComponents>;
 class Component
 {
 public:
-	Entity* entity;
+	Entity* entityPointer;
 
 	virtual void init() {}
 	virtual void update() {}
@@ -51,11 +53,12 @@ public:
 
 class Entity
 {
+
 private:
 	bool active = true;
 	std::vector<std::unique_ptr<Component>> components;
 
-	ComponentArray componentArray;
+	ComponentArray componentArray = {nullptr};
 	ComponentBitSet componentBitSet;
 
 public:
@@ -84,23 +87,41 @@ public:
 	template <typename T,typename... TArgs>
 	T& addComponent(TArgs&&... mArgs)
 	{
-		T* c(new T(std::forward<TArgs>(mArgs)...));
-		c->entity = this;
-		std::unique_ptr<Component>uPtr{ c };
+		T* PointerToNewComponent(new T(std::forward<TArgs>(mArgs)...));
+		//adding pointer to entitys to the component
+		PointerToNewComponent->entityPointer = this;
+
+		std::unique_ptr<Component>uPtr{ PointerToNewComponent };
 		components.emplace_back(std::move(uPtr));
 		
-		componentArray[getComponentTypeID<T>()] = c;
+		componentArray[getComponentTypeID<T>()] = PointerToNewComponent;
 		componentBitSet[getComponentTypeID<T>()] = true;
 
-		c->init();
-		return *c;
+		PointerToNewComponent->init();
+		return *PointerToNewComponent;
 	}
 
 	template<typename T> 
 	T& getComponent() const
 	{
-		auto ptr = componentArray[getComponentTypeID<T>()];
-		return *static_cast<T*>(ptr);
+		ComponentID id = getComponentTypeID<T>();
+
+		try 
+		{
+			if (id < maxComponents) {
+				auto ptr = componentArray[id];
+				return *static_cast<T*>(ptr);
+			}
+			else {
+				// Handle error: Component ID out of bounds
+				// Return a default or throw an exception
+				throw std::out_of_range("Component ID out of bounds");
+			}
+		}
+		catch (const std::exception& e)
+		{
+			std::cout << e.what() << std::endl;
+		}
 	}
 };
 

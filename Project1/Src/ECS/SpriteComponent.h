@@ -1,26 +1,23 @@
 #pragma once
 
-#include "Components.h"
-#include "SDL.h"
+#include "../../SDL2/include/SDL.h"
+#include "../../Src/TextureManager.h"
+#include "PositionComponent.h"
 
 class SpriteComponent : public Component
 {
 private: 
-	PositionComponent* position;
+
+	PositionComponent* positionComponentPointer;
 	SDL_Texture* texture;
 	SDL_Rect srcRect, destRect;
+	int cnt = 0;
 
 public:
-	SpriteComponent() = default;
-	
-	SpriteComponent(const char* path)
-	{
-		texture = TextureManager::LoadTexture(path);
-	}
 
 	void init() override
 	{
-		position = &entity->getComponent<PositionComponent>();
+		positionComponentPointer = &(entityPointer->getComponent<PositionComponent>());
 
 		srcRect.x = srcRect.y = 0;
 		srcRect.w = srcRect.h = 32;
@@ -28,10 +25,22 @@ public:
 
 	}
 
+	SpriteComponent() = default;
+	
+	SpriteComponent(const char* path)
+	{
+		texture = TextureManager::LoadTexture(path);
+	}
+
+
+
 	void update() override
 	{
-		destRect.x = position->x();
-		destRect.y = position->y();
+		destRect.x = positionComponentPointer->x();
+		destRect.y = positionComponentPointer->y();
+		//destRect.x = cnt++;
+		//destRect.y = cnt++;
+
 	}
 
 	void draw() override

@@ -56,9 +56,8 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		}
 
 		isRunning = true;
-
-		
 	}
+
 	else 
 	{
 		//if SDL doesnot initialise properly
@@ -93,9 +92,6 @@ void Game::update()
 {
 	manager.update();
 	manager.draw();
-	
-
-
 }
 
 void Game::render()
