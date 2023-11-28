@@ -17,7 +17,7 @@ public:
 	void clean();
 	bool running();
 	static SDL_Renderer* renderer;
-
+	static SDL_Event event;
 private:
 	int cnt;		//counter
 	bool isRunning;

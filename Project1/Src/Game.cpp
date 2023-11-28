@@ -5,14 +5,15 @@
 
 #include "ECS/ECS.h"
 #include "ECS/Components.h"
-
+#include "Collision.h"
 
 Map* map;
 Manager manager;
 SDL_Renderer* Game::renderer = nullptr;
-
+SDL_Event Game::event;
 
 auto& player(manager.addEntity());
+auto& wall(manager.addEntity());
 
 Game::Game() 
 {
@@ -67,14 +68,19 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	map = new Map();
 
 	//ECS implementation
-	player.addComponent<PositionComponent>();
+	player.addComponent<TransformComponent>(40.0f,50.0f,64,64,2);
 	player.addComponent<SpriteComponent>("Assets/character/idle/i1.png");
+	player.addComponent<KeyboardController>();
+	player.addComponent<ColliderComponent>("player");
 
+	wall.addComponent<TransformComponent>(300.0f, 300.0f, 300, 20, 1);
+	wall.addComponent<SpriteComponent>("Assets/map/wall.png");
+	wall.addComponent<ColliderComponent>("wall");
 }
 
 void Game::handleEvent()
 {
-	SDL_Event event;
+	
 	SDL_PollEvent(&event);
 
 	switch (event.type)
@@ -90,8 +96,8 @@ void Game::handleEvent()
 
 void Game::update()
 {
+	//manager.refresh();
 	manager.update();
-	manager.draw();
 }
 
 void Game::render()

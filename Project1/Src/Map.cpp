@@ -1,7 +1,7 @@
 #include "Map.h"
 #include "TextureManager.h"
 
-const int tileSize = 64;
+const int tileSize = 128;
 int lvl1[Map::Levelrows][Map::Levelcols];
 
 
@@ -30,6 +30,14 @@ Map::Map()
 
 	dest.x = dest.y = 0;
 
+
+}
+
+Map::~Map()
+{
+	SDL_DestroyTexture(grass);
+	SDL_DestroyTexture(water);
+	SDL_DestroyTexture(dirt);
 
 }
 

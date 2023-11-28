@@ -37,7 +37,7 @@ int main(int argc,char *argv[])
 		game->handleEvent();
 		//update all positions
 		game->update();
-		//render changes
+		//render/draw changes
 		game->render();
 
 		frameTime = SDL_GetTicks() - frameStart;
