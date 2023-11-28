@@ -93,3 +93,20 @@ std::ostream& operator<<(std::ostream& stream, const Vector2D& vec)
 	return stream;
 }
 
+Vector2D& Vector2D::operator*(const int& number)
+{
+	this->x *= number;
+	this->y *= number;
+
+	return *this;
+}
+
+Vector2D& Vector2D::Zero()
+{
+	this->x = 0;
+	this->y = 0;
+
+	return *this;
+}
+
+

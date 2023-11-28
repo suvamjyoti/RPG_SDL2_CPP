@@ -48,8 +48,11 @@ public:
 
 	void update() override
 	{
-		destRect.x = (int) transformComponentPointer->position.x;
-		destRect.y = (int) transformComponentPointer->position.y;
+		destRect.x = static_cast<int>(transformComponentPointer->position.x);
+		destRect.y = static_cast<int>(transformComponentPointer->position.y);
+		destRect.w = (transformComponentPointer->width * transformComponentPointer->scale);
+		destRect.h = (transformComponentPointer->height * transformComponentPointer->scale);
+
 		//destRect.x = cnt++;
 		//destRect.y = cnt++;
 

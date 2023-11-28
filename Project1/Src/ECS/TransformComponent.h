@@ -19,16 +19,12 @@ public:
 
 	void init() override
 	{
-		
-
+		velocity.Zero();
 	}
 
 	TransformComponent()
 	{
-		position.x = 0.0f;
-		position.y = 0.0f;
-		velocity.x = 0;
-		velocity.y = 0;
+		position.Zero();
 	}
 
 	TransformComponent(float x, float y)
