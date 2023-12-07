@@ -12,14 +12,9 @@ private:
 	TransformComponent* transformComponentPointer;
 	SDL_Texture* texture;
 	SDL_Rect srcRect, destRect;
-	
-	bool animated = false;
-	int frame = 0;
-	int speed = 100;		//delay between frames in miliseconds
-	std::string  filepath;
 
 public:
-
+	
 	void init() override
 	{
 		//get the transform component form the entity by derefrencing entity pointer
@@ -41,14 +36,6 @@ public:
 		SetTeture(path);
 	}
 
-	SpriteComponent(const char* path,int mFrames,int mSpeed)
-	{
-		animated = true;
-		frame = mFrames;
-		speed = mSpeed;
-		filepath = path;
-	}
-
 	~SpriteComponent()
 	{
 		SDL_DestroyTexture(texture);
@@ -61,13 +48,6 @@ public:
 
 	void update() override
 	{
-		if(animated)
-		{
-			std::string mFilePath = filepath;
-			mFilePath += std::to_string((SDL_GetTicks()/speed) %frame);
-			mFilePath += ".png";
-			SetTeture(mFilePath.c_str());
-		}
 
 		destRect.x = static_cast<int>(transformComponentPointer->position.x);
 		destRect.y = static_cast<int>(transformComponentPointer->position.y);
@@ -76,7 +56,6 @@ public:
 
 		//destRect.x = cnt++;
 		//destRect.y = cnt++;
-
 	}
 
 	void draw() override

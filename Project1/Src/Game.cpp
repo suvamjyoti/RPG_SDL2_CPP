@@ -6,6 +6,8 @@
 #include "ECS/ECS.h"
 #include "ECS/Components.h"
 #include "Collision.h"
+#include "ECS/AnimationComponent.h"
+#include "Animations/PlayerAnimation.h"
 
 
 Manager manager;
@@ -77,10 +79,12 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
 	Map::LoadMap("Assets/map/tilemap.map",32,32);
 
-	player.addComponent<TransformComponent>(40.0f,50.0f,32,32,4);
-	player.addComponent<SpriteComponent>("Assets/character/idle/",3,500);
+	player.addComponent<TransformComponent>(40.0f,50.0f,50,64,3);
+	player.addComponent<SpriteComponent>("Assets/character/idle/1.png");
 	player.addComponent<KeyboardController>();
 	player.addComponent<ColliderComponent>("player");
+	PlayerAnimation playerAnimation;
+	player.addComponent<AnimationComponent>(playerAnimation.playerAnimationMap, AnimationType::idle);
 	player.addGroup(groupPlayers);
 }
 

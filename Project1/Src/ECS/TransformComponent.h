@@ -16,7 +16,6 @@ public:
 
 	int speed = 3;
 
-
 	void init() override
 	{
 		velocity.Zero();
@@ -46,7 +45,6 @@ public:
 	{
 		position.x += velocity.x * speed;
 		position.y += velocity.y * speed;
-
 	}
 
 };
