@@ -12,6 +12,8 @@
 
 <h2> Progress </h2>
 
-<h3> Basic movement and Animation</h3>
-![Movement and Animation GIF](https://github.com/suvamjyoti/RPG_SDL2_CPP/raw/main/assets/35528169/2c395a28-19ef-4d0b-99a1-604e84b870a0.gif)
+### Basic Movement and Animation
+![Movement and Animation GIF](https://raw.githubusercontent.com/suvamjyoti/RPG_SDL2_CPP/main/RAW/GIF/Movement_And_Animation.gif)
+
+
 
