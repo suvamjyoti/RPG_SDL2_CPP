@@ -77,7 +77,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
 	Map::LoadMap("Assets/map/tilemap.map",32,32);
 
-	player.addComponent<TransformComponent>(40.0f,50.0f,32,32,3);
+	player.addComponent<TransformComponent>(40.0f,50.0f,32,32,4);
 	player.addComponent<SpriteComponent>("Assets/character/idle/",3,500);
 	player.addComponent<KeyboardController>();
 	player.addComponent<ColliderComponent>("player");
