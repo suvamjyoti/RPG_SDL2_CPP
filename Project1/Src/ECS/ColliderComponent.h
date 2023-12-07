@@ -11,7 +11,7 @@ public:
 	SDL_Rect collider;
 	std::string tag;
 
-	TransformComponent* transformPointer;
+	TransformComponent* transform_p;
 
 	ColliderComponent(std::string t)
 	{
@@ -20,19 +20,24 @@ public:
 
 	void init() override
 	{
-		if (!entityPointer->hasComponent<TransformComponent>())
+		if (!entity_p->hasComponent<TransformComponent>())
 		{
-			entityPointer->addComponent<TransformComponent>();
+			entity_p->addComponent<TransformComponent>();
 		}
 
-		transformPointer = &entityPointer->getComponent<TransformComponent>();
+		transform_p = &entity_p->getComponent<TransformComponent>();
+
+		if (tag != "player")
+		{
+			Game::colliders.push_back(this);
+		}
 	}
 
 	void update() override
 	{
-		collider.x = static_cast<int> (transformPointer->position.x);
-		collider.y = static_cast<int> (transformPointer->position.y);
-		collider.w = static_cast<int> (transformPointer->width * transformPointer->scale);
-		collider.h = static_cast<int> (transformPointer->height * transformPointer->scale);
+		collider.x = static_cast<int> (transform_p->position.x);
+		collider.y = static_cast<int> (transform_p->position.y);
+		collider.w = static_cast<int> (transform_p->width * transform_p->scale);
+		collider.h = static_cast<int> (transform_p->height * transform_p->scale);
 	}
 };

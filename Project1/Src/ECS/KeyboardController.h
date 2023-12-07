@@ -11,7 +11,7 @@ public:
 	
 	void init() override
 	{
-		transform = &entityPointer->getComponent<TransformComponent>();
+		transform = &entity_p->getComponent<TransformComponent>();
 	}
 
 	void update() override

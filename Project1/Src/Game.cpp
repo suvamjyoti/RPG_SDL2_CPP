@@ -7,13 +7,22 @@
 #include "ECS/Components.h"
 #include "Collision.h"
 
-Map* map;
+
 Manager manager;
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
+std::vector<ColliderComponent*> Game::colliders;
 
 auto& player(manager.addEntity());
 auto& wall(manager.addEntity());
+
+enum groupLabels : std::size_t
+{
+	groupMap,
+	groupPlayers,
+	groupEnemies,
+	groupColliders
+};
 
 Game::Game() 
 {
@@ -65,17 +74,14 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		isRunning = false;
 	}
 
-	map = new Map();
 
-	//ECS implementation
-	player.addComponent<TransformComponent>(40.0f,50.0f,64,64,2);
-	player.addComponent<SpriteComponent>("Assets/character/idle/i1.png");
+	Map::LoadMap("Assets/map/tilemap.map",32,32);
+
+	player.addComponent<TransformComponent>(40.0f,50.0f,32,32,3);
+	player.addComponent<SpriteComponent>("Assets/character/idle/",3,500);
 	player.addComponent<KeyboardController>();
 	player.addComponent<ColliderComponent>("player");
-
-	wall.addComponent<TransformComponent>(300.0f, 300.0f, 300, 20, 1);
-	wall.addComponent<SpriteComponent>("Assets/map/wall.png");
-	wall.addComponent<ColliderComponent>("wall");
+	player.addGroup(groupPlayers);
 }
 
 void Game::handleEvent()
@@ -98,26 +104,33 @@ void Game::update()
 {
 	manager.refresh();
 	manager.update();
-	
-	if (Collision::AABB(player.getComponent<ColliderComponent>().collider,
-		wall.getComponent<ColliderComponent>().collider))
+
+	for (auto cc : colliders)
 	{
-		player.getComponent<TransformComponent>().scale = 1;
-		player.getComponent<TransformComponent>().velocity * -1;
-		std::cout << "collision"<<std::endl;
+		//check for collision with all the colliders in the list
+		Collision::AABB(player.getComponent<ColliderComponent>(), *cc);
 	}
+	
 
 }
+
+auto& tiles(manager.getGroup(groupMap));
+auto& players(manager.getGroup(groupPlayers));
 
 void Game::render()
 {
 	SDL_RenderClear(renderer);
 
-	//this is where we add stuff to render
+	for (auto& t : tiles)
+	{
+		t->draw();
+	}
 
-	//order in which added is the order in which it is displayed
-	map->DrawMap();
-	manager.draw();
+	for (auto& p : players)
+	{
+		p->draw();
+	}
+
 
 	SDL_RenderPresent(renderer);
 }
@@ -133,4 +146,11 @@ void Game::clean()
 bool Game::running()
 {
 	return isRunning;
+}
+
+void Game::AddTiles(int id, int x, int y)
+{
+	auto& tile(manager.addEntity());
+	tile.addComponent<TileComponent>(x, y, 32, 32, id);
+	tile.addGroup(groupMap);
 }
