@@ -13,5 +13,5 @@
 <h2> Progress </h2>
 
 <h3> Basic movement and Animation</h3>
-![Movement and Animation GIF](https://github.com/suvamjyoti/RPG_SDL2_CPP/blob/main/RAW/GIF/Movement_And_Animation.gif?raw=true)
+![Movement and Animation GIF](https://raw.githubusercontent.com/suvamjyoti/RPG_SDL2_CPP/main/RAW/GIF/Movement_And_Animation.gif)
 
