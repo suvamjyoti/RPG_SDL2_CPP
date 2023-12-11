@@ -1,7 +1,6 @@
 #pragma once
-#include "SDL.h"
+
 #include "ECS.h"
-#include "Components.h"
 #include <map>
 
 enum  AnimationType

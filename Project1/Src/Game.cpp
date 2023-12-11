@@ -81,11 +81,12 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
 	player.addComponent<TransformComponent>(40.0f,50.0f,50,64,3);
 	player.addComponent<SpriteComponent>("Assets/character/idle/1.png");
-	player.addComponent<KeyboardController>();
-	player.addComponent<ColliderComponent>("player");
 	PlayerAnimation playerAnimation;
 	player.addComponent<AnimationComponent>(playerAnimation.playerAnimationMap, AnimationType::idle);
 	player.addGroup(groupPlayers);
+	player.addComponent<KeyboardController>();
+	player.addComponent<ColliderComponent>("player");
+
 }
 
 void Game::handleEvent()
