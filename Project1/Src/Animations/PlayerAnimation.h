@@ -8,8 +8,8 @@ class PlayerAnimation
 {
 private:
 
-	Animation idle{ AnimationType::idle, "Assets/character/idle/", 3, 400 };
-	Animation move{AnimationType::move, "Assets/character/run/k", 8, 100};
+	Animation idle{ AnimationType::idle, "Assets/character/idle/", 3, 300 };
+	Animation move{AnimationType::move, "Assets/character/run/k", 8, 80};
 
 public:
 

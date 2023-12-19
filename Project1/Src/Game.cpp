@@ -18,6 +18,8 @@ std::vector<ColliderComponent*> Game::colliders;
 auto& player(manager.addEntity());
 auto& wall(manager.addEntity());
 
+const char* MapTileSetPath = "Assets/map/terrain.png";
+
 enum groupLabels : std::size_t
 {
 	groupMap,
@@ -77,9 +79,9 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	}
 
 
-	Map::LoadMap("Assets/map/tilemap.map",32,32);
+	Map::LoadMap("Assets/map/Map1.map",20,20);
 
-	player.addComponent<TransformComponent>(40.0f,50.0f,50,64,3);
+	player.addComponent<TransformComponent>(40.0f,50.0f,50,64,1);
 	player.addComponent<SpriteComponent>("Assets/character/idle/1.png");
 	PlayerAnimation playerAnimation;
 	player.addComponent<AnimationComponent>(playerAnimation.playerAnimationMap, AnimationType::idle);
@@ -153,9 +155,9 @@ bool Game::running()
 	return isRunning;
 }
 
-void Game::AddTiles(int id, int x, int y)
+void Game::AddTiles(int srcX, int srcY, int xpos, int ypos)
 {
 	auto& tile(manager.addEntity());
-	tile.addComponent<TileComponent>(x, y, 32, 32, id);
+	tile.addComponent<TileComponent>(srcX, srcY, xpos, ypos, MapTileSetPath);
 	tile.addGroup(groupMap);
 }

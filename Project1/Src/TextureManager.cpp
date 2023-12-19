@@ -10,7 +10,13 @@ SDL_Texture* TextureManager::LoadTexture(const char* texture)
 	return tex;
 }
 
-void TextureManager:: Draw(SDL_Texture* tex, SDL_Rect src, SDL_Rect dst)
+void TextureManager:: Draw(SDL_Texture* tex, SDL_Rect src, SDL_Rect dst, SDL_RendererFlip flip, bool isSprite)
 {
-	SDL_RenderCopy(Game::renderer, tex, NULL, &dst);
+	if (isSprite)
+	{
+		SDL_RenderCopyEx(Game::renderer, tex, NULL, &dst, NULL, NULL, flip);
+		return;
+	}
+
+	SDL_RenderCopyEx(Game::renderer, tex, &src, &dst,NULL,NULL,flip);
 }

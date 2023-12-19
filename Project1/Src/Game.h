@@ -20,7 +20,7 @@ public:
 	void clean();
 	bool running();
 
-	static void AddTiles(int id, int x, int y);
+	static void AddTiles(int srcX,int srcY, int xpos, int ypos);
 
 	static SDL_Renderer* renderer;
 	static SDL_Event event;

@@ -20,7 +20,7 @@ public:
 		//get the transform component form the entity by derefrencing entity pointer
 		transformComponentPointer = &(entity_p->getComponent<TransformComponent>());
 
-		srcRect.x = srcRect.y = 100;
+		srcRect.x = srcRect.y = 0;
 		srcRect.w = transformComponentPointer->width;
 		srcRect.h = transformComponentPointer->height;
 
@@ -28,6 +28,8 @@ public:
 		destRect.h = transformComponentPointer->height * transformComponentPointer->scale;
 
 	}
+
+	SDL_RendererFlip spriteFlip = SDL_FLIP_NONE;
 
 	SpriteComponent() = default;
 	
@@ -60,7 +62,7 @@ public:
 
 	void draw() override
 	{
-		TextureManager::Draw(texture, srcRect, destRect);
+		TextureManager::Draw(texture, srcRect, destRect,spriteFlip,true);
 	}
 
 
