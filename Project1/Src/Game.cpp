@@ -20,6 +20,10 @@ auto& player(manager.addEntity());
 
 Map* map;
 
+const char* mapFilePath = "Assets/map/Map1.map";
+const char* tileFilePath = "Assets/map/terrain.png";
+
+
 Game::Game() 
 {
 
@@ -70,9 +74,9 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		isRunning = false;
 	}
 
-	map = new Map("Assets/map/Map1.map", 3, 32);
+	map = new Map(mapFilePath,tileFilePath,3,32);
 
-	map->LoadMap("Assets/map/Map1.map", 20, 20);
+	map->LoadMap(mapFilePath, 20, 20);
 
 	player.addComponent<TransformComponent>(400.0f,400.0f,50,64,2);
 	player.addComponent<SpriteComponent>("Assets/character/idle/1.png");
@@ -81,7 +85,6 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	player.addGroup(groupPlayers);
 	player.addComponent<KeyboardController>();
 	player.addComponent<ColliderComponent>("player");
-
 }
 
 auto& tiles(manager.getGroup(Game::groupMap));
@@ -112,10 +115,14 @@ void Game::update()
 
 	for (auto& c : colliders)
 	{
-		SDL_Rect cCol = c->getComponent<ColliderComponent>().collider;
-		if (Collision::AABB(cCol, playerCollider))
+		ColliderComponent colliderComponent = c->getComponent<ColliderComponent>();
+		SDL_Rect cCol = colliderComponent.collider;
+		bool isTerrain = colliderComponent.tag == "terrain";
+		
+		if (isTerrain && Collision::AABB(cCol, playerCollider))
 		{
 			player.getComponent<TransformComponent>().position = playerpos;
+			std::cout << "collision detected";
 		}
 	}
 

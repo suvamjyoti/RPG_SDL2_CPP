@@ -14,9 +14,9 @@ public:
 
 	TileComponent() = default;
 
-	TileComponent(int srcX,int srcY,int xpos,int ypos,int tsize,int tscale,const char* path)
+	TileComponent(int srcX,int srcY,int xpos,int ypos,int tsize,int tscale,const char* tileMapPath)
 	{
-		texture = TextureManager::LoadTexture(path);
+		texture = TextureManager::LoadTexture(tileMapPath);
 
 		srcRect.x = srcX;
 		srcRect.y = srcY;

@@ -6,7 +6,8 @@
 
 extern Manager manager;
 
-Map::Map(const char* mfp,int ms,int ts): mapFilePath(mfp),mapScale(ms),tileSize(ts)
+Map::Map(const char* mfp,const char* tfp,int ms,int ts): 
+					mapFilePath(mfp),tileFilePath(tfp),mapScale(ms),tileSize(ts)
 {
 	scaledSize = ms * ts;
 }
@@ -19,7 +20,7 @@ void Map::LoadMap(std::string path, int sizeX, int sizeY)
 
 	int srcX,srcY;
 
-	for (int y = 0;y < sizeY;y++)
+	for (int y = 0;y<sizeY;y++)
 	{
 		for (int x = 0;x<sizeX;x++)
 		{
@@ -33,7 +34,7 @@ void Map::LoadMap(std::string path, int sizeX, int sizeY)
 			mapFile.get(tile);
 			srcX = atoi(&tile) * tileSize;
 
-			AddTiles(srcX,srcY, x * tileSize * mapScale, y * tileSize * mapScale);
+			AddTiles(srcX,srcY, x * tileSize * mapScale , y * tileSize * mapScale);
 			
 			//here ignore ,
 			mapFile.ignore();
@@ -64,7 +65,7 @@ void Map::LoadMap(std::string path, int sizeX, int sizeY)
 void Map::AddTiles(int srcX, int srcY, int xpos, int ypos)
 {
 	auto& tile(manager.addEntity());
-	tile.addComponent<TileComponent>(srcX, srcY, xpos, ypos,tileSize,mapScale,mapFilePath);
+	tile.addComponent<TileComponent>(srcX, srcY, xpos, ypos,tileSize,mapScale,tileFilePath);
 	tile.addGroup(Game::groupMap);
 }
 

@@ -41,10 +41,6 @@ public:
 		tex = TextureManager::LoadTexture("Assets/map/CollisionBorder.png");
 		srcR = { 0,0,32,32 };
 		DestR = { collider.x,collider.y,collider.w,collider.h };
-
-		if (tag != "player")
-		{
-		}
 	}
 
 	void update() override
