@@ -48,9 +48,9 @@ public:
 		if (tag != "terrain")
 		{
 
-			collider.x = static_cast<int> (transform_p->position.x);
-			collider.y = static_cast<int> (transform_p->position.y);
-			collider.w = static_cast<int> (transform_p->width * transform_p->scale);
+			collider.x = static_cast<int> (transform_p->position.x+20);
+			collider.y = static_cast<int> (transform_p->position.y+8);
+			collider.w = static_cast<int> ((transform_p->width * transform_p->scale)-50);
 			collider.h = static_cast<int> (transform_p->height * transform_p->scale);
 		}
 

@@ -113,6 +113,9 @@ void Game::update()
 	SDL_Rect playerCollider = player.getComponent<ColliderComponent>().collider;
 	Vector2D playerpos = player.getComponent<TransformComponent>().position;
 
+	manager.refresh();
+	manager.update();
+
 	for (auto& c : colliders)
 	{
 		ColliderComponent colliderComponent = c->getComponent<ColliderComponent>();
@@ -126,8 +129,7 @@ void Game::update()
 		}
 	}
 
-	manager.refresh();
-	manager.update();
+
 
 	Camera.x = player.getComponent<TransformComponent>().position.x - 400;
 	Camera.y = player.getComponent<TransformComponent>().position.y - 320;
@@ -155,10 +157,10 @@ void Game::render()
 		p->draw();
 	}
 
-	for (auto& c : colliders)
-	{
-		c->draw();
-	}
+	//for (auto& c : colliders)
+	//{
+	//	c->draw();
+	//}
 
 	SDL_RenderPresent(renderer);
 }

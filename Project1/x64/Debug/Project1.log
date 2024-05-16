@@ -3,8 +3,8 @@ C:\Users\Suvamjyoti Panda\source\repos\Project1\Project1\Src\ECS\TileComponent.h
 C:\Users\Suvamjyoti Panda\source\repos\Project1\Project1\Src\ECS\TileComponent.h(26,16): warning C4244: '=': conversion from 'int' to 'float', possible loss of data
 C:\Users\Suvamjyoti Panda\source\repos\Project1\Project1\Src\ECS\TileComponent.h(40,27): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
 C:\Users\Suvamjyoti Panda\source\repos\Project1\Project1\Src\ECS\TileComponent.h(41,27): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\Suvamjyoti Panda\source\repos\Project1\Project1\Src\Game.cpp(132,66): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
-C:\Users\Suvamjyoti Panda\source\repos\Project1\Project1\Src\Game.cpp(133,66): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Suvamjyoti Panda\source\repos\Project1\Project1\Src\Game.cpp(134,66): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
+C:\Users\Suvamjyoti Panda\source\repos\Project1\Project1\Src\Game.cpp(135,66): warning C4244: '=': conversion from 'float' to 'int', possible loss of data
 C:\Users\Suvamjyoti Panda\source\repos\Project1\Project1\Src\ECS\ECS.h(147): warning C4715: 'Entity::getComponent<ColliderComponent>': not all control paths return a value
 C:\Users\Suvamjyoti Panda\source\repos\Project1\Project1\Src\ECS\ECS.h(147): warning C4715: 'Entity::getComponent<TransformComponent>': not all control paths return a value
 C:\Users\Suvamjyoti Panda\source\repos\Project1\Project1\Src\ECS\ECS.h(147): warning C4715: 'Entity::getComponent<SpriteComponent>': not all control paths return a value
