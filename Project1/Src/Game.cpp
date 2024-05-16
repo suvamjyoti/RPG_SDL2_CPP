@@ -13,20 +13,12 @@
 Manager manager;
 SDL_Renderer* Game::renderer = nullptr;
 SDL_Event Game::event;
-std::vector<ColliderComponent*> Game::colliders;
+
+SDL_Rect Game::Camera = { 0,0,800,640 };
 
 auto& player(manager.addEntity());
-auto& wall(manager.addEntity());
 
-const char* MapTileSetPath = "Assets/map/terrain.png";
-
-enum groupLabels : std::size_t
-{
-	groupMap,
-	groupPlayers,
-	groupEnemies,
-	groupColliders
-};
+Map* map;
 
 Game::Game() 
 {
@@ -65,7 +57,7 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 
 		if (renderer)
 		{
-			SDL_SetRenderDrawColor(renderer, 255, 255, 255, 255);
+			SDL_SetRenderDrawColor(renderer, 0, 0, 0, 0);
 			std::cout << "Renderer Created" << std::endl;
 		}
 
@@ -78,10 +70,11 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 		isRunning = false;
 	}
 
+	map = new Map("Assets/map/Map1.map", 3, 32);
 
-	Map::LoadMap("Assets/map/Map1.map",20,20);
+	map->LoadMap("Assets/map/Map1.map", 20, 20);
 
-	player.addComponent<TransformComponent>(40.0f,50.0f,50,64,1);
+	player.addComponent<TransformComponent>(400.0f,400.0f,50,64,2);
 	player.addComponent<SpriteComponent>("Assets/character/idle/1.png");
 	PlayerAnimation playerAnimation;
 	player.addComponent<AnimationComponent>(playerAnimation.playerAnimationMap, AnimationType::idle);
@@ -90,6 +83,10 @@ void Game::init(const char* title, int xpos, int ypos, int width, int height, bo
 	player.addComponent<ColliderComponent>("player");
 
 }
+
+auto& tiles(manager.getGroup(Game::groupMap));
+auto& players(manager.getGroup(Game::groupPlayers));
+auto& colliders(manager.getGroup(Game::groupColliders));
 
 void Game::handleEvent()
 {
@@ -109,20 +106,33 @@ void Game::handleEvent()
 
 void Game::update()
 {
+
+	SDL_Rect playerCollider = player.getComponent<ColliderComponent>().collider;
+	Vector2D playerpos = player.getComponent<TransformComponent>().position;
+
+	for (auto& c : colliders)
+	{
+		SDL_Rect cCol = c->getComponent<ColliderComponent>().collider;
+		if (Collision::AABB(cCol, playerCollider))
+		{
+			player.getComponent<TransformComponent>().position = playerpos;
+		}
+	}
+
 	manager.refresh();
 	manager.update();
 
-	for (auto cc : colliders)
-	{
-		//check for collision with all the colliders in the list
-		Collision::AABB(player.getComponent<ColliderComponent>(), *cc);
-	}
-	
+	Camera.x = player.getComponent<TransformComponent>().position.x - 400;
+	Camera.y = player.getComponent<TransformComponent>().position.y - 320;
 
+	if (Camera.x < 0) Camera.x = 0;
+	if (Camera.y < 0) Camera.y = 0;
+	if (Camera.x > Camera.w) Camera.x = Camera.w;
+	if (Camera.y > Camera.h) Camera.y = Camera.h;
+	
 }
 
-auto& tiles(manager.getGroup(groupMap));
-auto& players(manager.getGroup(groupPlayers));
+
 
 void Game::render()
 {
@@ -138,6 +148,10 @@ void Game::render()
 		p->draw();
 	}
 
+	for (auto& c : colliders)
+	{
+		c->draw();
+	}
 
 	SDL_RenderPresent(renderer);
 }
@@ -153,11 +167,4 @@ void Game::clean()
 bool Game::running()
 {
 	return isRunning;
-}
-
-void Game::AddTiles(int srcX, int srcY, int xpos, int ypos)
-{
-	auto& tile(manager.addEntity());
-	tile.addComponent<TileComponent>(srcX, srcY, xpos, ypos, MapTileSetPath);
-	tile.addGroup(groupMap);
 }

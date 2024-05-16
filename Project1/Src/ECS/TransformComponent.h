@@ -23,7 +23,8 @@ public:
 
 	TransformComponent()
 	{
-		position.Zero();
+		position.x = 0;
+		position.y = 0;
 	}
 
 	TransformComponent(float x, float y)

@@ -51,8 +51,8 @@ public:
 	void update() override
 	{
 
-		destRect.x = static_cast<int>(transformComponentPointer->position.x);
-		destRect.y = static_cast<int>(transformComponentPointer->position.y);
+		destRect.x = static_cast<int>(transformComponentPointer->position.x) - Game::Camera.x;
+		destRect.y = static_cast<int>(transformComponentPointer->position.y) - Game::Camera.y;
 		destRect.w = (transformComponentPointer->width * transformComponentPointer->scale);
 		destRect.h = (transformComponentPointer->height * transformComponentPointer->scale);
 
